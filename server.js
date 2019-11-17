@@ -1,34 +1,8 @@
-const http = require('http');
+const app = require('./src/config/custom-express');
+const routes = require('./src/app/routes/routes');
 
-const server = http.createServer(function (req, res) {
+app.listen(3000, function () {
+    console.log('Servidor rodando na porta 3000');
+})
 
-  let html = '';
-  if (req.url === '/') {
-    html = `
-     <html>
-      <head>
-        <meta charset="utf-8">
-      </head>
-            <body>
-              <h1> Casa do Código </h1>
-            </body>
-    </html>
-    `;
-  }
-  else if(req.url === '/livros') {
-    html = `
-    <html>
-     <head>
-       <meta charset="utf-8">
-     </head>
-           <body>
-             <h1> Livros </h1>
-           </body>
-   </html>
-   `;
-  }
-  res.end(html);
-});
-
-server.listen(3000);
-
+routes(app);
