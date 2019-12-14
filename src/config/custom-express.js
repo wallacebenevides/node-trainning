@@ -24,6 +24,14 @@ const routes = require('../app/routes/routes');
 
 routes(app);
 
+app.use((req, res, next) => {
+  res.status(404).marko(require('../app/views/base/erro/404.marko'))
+})
+
+app.use((error, req, res, next) => {
+  res.status(500).marko(require('../app/views/base/erro/500.marko'))
+})
+
 
 module.exports = app;
 
