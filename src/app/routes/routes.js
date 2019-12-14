@@ -40,19 +40,25 @@ module.exports = (app) => {
 
   app.delete('/livros/:id', function (req, res) {
     livroDao.remove(req.params.id)
-      .then(res.redirect('/livros'))
+      .then(res.status(200).end())
       .catch(console.error);
   })
 
-  app.get('/livro/:id', function (req, res) {
+  
+  app.get('/livros/form', function (req, res) {
+    res.marko(require('../views/livros/form/form-livros'), {livro: {}})
+  })
+  
+  app.get('/livros/form/:id', function (req, res) {
+    livroDao.buscaPorId(req.params.id)
+    .then(livro => res.marko(require('../views/livros/form/form-livros'), { livro }))
+    
+  })
+  app.get('/livros/:id', function (req, res) {
     const showLivro = livros => res.marko(require('../views/livros/lista/lista-livros'), { livros: [livros] });
     livroDao.buscaPorId(req.params.id)
       .then(showLivro)
       .catch(console.error);
   })
-
-  app.get('/livros/form', function (req, res) {
-    res.marko(require('../views/livros/form/form-livros'))
-  })
-
+  
 }

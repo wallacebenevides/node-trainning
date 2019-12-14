@@ -67,9 +67,9 @@ class LivroDao {
                 titulo = ?,
                 preco = ?,
                 descricao = ?
-                    WHERE 
-                id = ? "
-                    `, [
+            WHERE 
+                id = ? 
+                `, [
                 titulo,
                 preco,
                 descricao,
